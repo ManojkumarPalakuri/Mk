@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
     // Stream responses using Groq's active LLaMA model
     const result = streamText({
-      model: groq("llama-3.3-70b-versatile"),
+      model: groq("llama-3.1-8b-instant"),
       system: systemPrompt,
       messages,
       maxSteps: 2, // allows the AI to call a tool, get the result, and respond back
