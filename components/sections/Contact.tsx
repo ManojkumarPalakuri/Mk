@@ -15,7 +15,8 @@ const GithubIcon = () => (
 export default function Contact() {
   const [form, setForm]           = useState<FormData>({ name: "", email: "", subject: "", message: "" });
   const [errors, setErrors]       = useState<FormErrors>({});
-  const [status, setStatus]       = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus]       = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
   const [focusedField, setFocused] = useState<string | null>(null);
 
   const validate = () => {
@@ -33,9 +34,33 @@ export default function Contact() {
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) return;
+    
     setStatus("sending");
-    await new Promise((r) => setTimeout(r, 1800));
-    setStatus("sent");
+    setSubmitError("");
+    
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
+      
+      const data = await res.json();
+      
+      if (data.success) {
+        setStatus("sent");
+        setForm({ name: "", email: "", subject: "", message: "" });
+        
+        // Reset back to idle after 5 seconds
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setSubmitError(data.error || "Failed to send message. Please try again later.");
+      }
+    } catch (err) {
+      setStatus("error");
+      setSubmitError("A network error occurred. Please check your connection.");
+    }
   };
 
   const fields: { key: keyof FormData; label: string; type?: string; multiline?: boolean }[] = [
@@ -380,6 +405,7 @@ export default function Contact() {
                       cursor: status === "sending" ? "not-allowed" : "pointer",
                       opacity: status === "sending" ? 0.75 : 1,
                       fontFamily: "'Syne',sans-serif",
+                      marginTop: "1rem"
                     }}
                   >
                     {status === "sending" ? (
@@ -388,6 +414,24 @@ export default function Contact() {
                       <><Send size={16} /> Send Message</>
                     )}
                   </motion.button>
+                  {status === "error" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      style={{
+                        padding: "1rem",
+                        background: "rgba(255, 77, 109, 0.1)",
+                        border: "1px solid rgba(255, 77, 109, 0.3)",
+                        borderRadius: "8px",
+                        color: "#ff4d6d",
+                        fontSize: "0.85rem",
+                        fontFamily: "'Inter', sans-serif",
+                        textAlign: "center"
+                      }}
+                    >
+                      {submitError}
+                    </motion.div>
+                  )}
                 </motion.form>
               )}
             </AnimatePresence>

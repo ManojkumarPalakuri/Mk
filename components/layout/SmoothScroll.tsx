@@ -32,10 +32,11 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     rafId.current = requestAnimationFrame(raf);
 
     /* Keep Framer Motion useScroll in sync with Lenis virtual scroll */
+    // Note: dispatching a synthetic "scroll" event here causes a Maximum Call Stack Size 
+    // Exceeded error because Lenis internally listens to window scroll events.
+    // Framer motion seamlessly handles native window scrolling regardless.
     lenis.on("scroll", () => {
-      // Dispatch a synthetic scroll event so Framer Motion's useScroll
-      // picks up the Lenis scroll position correctly.
-      window.dispatchEvent(new Event("scroll", { bubbles: false }));
+      // Intentionally left blank to avoid infinite recursive loop
     });
 
     return () => {

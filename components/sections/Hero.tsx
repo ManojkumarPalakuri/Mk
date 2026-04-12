@@ -166,6 +166,59 @@ export default function Hero() {
           BACKGROUND LAYER STACK — bottom to top
       ══════════════════════════════════════════════════════════ */}
 
+      {/* Standalone Extreme Top-Right Resume Button */}
+      <motion.a
+        href="/r1.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          position: "absolute",
+          top: "clamp(2rem, 5vh, 3.5rem)",
+          right: "clamp(1.5rem, 5vw, 4rem)",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          padding: "10px 20px",
+          borderRadius: "8px",
+          background: "rgba(255,255,255,0.03)",
+          border: "1px solid var(--border-glass-hover)",
+          color: "var(--text-secondary)",
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontWeight: 600,
+          fontSize: "0.8rem",
+          letterSpacing: "0.05em",
+          textTransform: "uppercase",
+          textDecoration: "none",
+          zIndex: 100,
+          cursor: "pointer",
+          backdropFilter: "blur(12px)",
+          transition: "all 0.3s ease",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+        }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget as HTMLAnchorElement;
+          el.style.borderColor = "var(--accent)";
+          el.style.color = "var(--text-primary)";
+          el.style.background = "rgba(108,99,255,0.08)";
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget as HTMLAnchorElement;
+          el.style.borderColor = "var(--border-glass-hover)";
+          el.style.color = "var(--text-secondary)";
+          el.style.background = "rgba(255,255,255,0.03)";
+        }}
+      >
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Resume
+      </motion.a>
+
       {/* 1 ── Deep base radial gradient blobs ─────────────────── */}
       <motion.div style={{ y: bgY, willChange: "transform" }} className="pointer-events-none blob">
         {/* Primary purple blob */}
@@ -553,11 +606,15 @@ export default function Hero() {
 
           {/* CTAs */}
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
-            <motion.button
+            <motion.a
+              href="#projects"
               whileHover={{ scale: 1.02, boxShadow: "0 0 24px rgba(108,99,255,0.35)" }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
               style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                textDecoration: "none",
                 padding: "13px 32px",
                 borderRadius: "4px 14px 4px 14px",
                 background: "var(--gradient-1)",
@@ -572,7 +629,7 @@ export default function Hero() {
               }}
             >
               View Work
-            </motion.button>
+            </motion.a>
 
             <motion.a
               href="https://github.com/ManojkumarPalakuri"
@@ -606,10 +663,14 @@ export default function Hero() {
               GitHub →
             </motion.a>
 
-            <motion.button
+            <motion.a
+              href="#contact"
               whileTap={{ scale: 0.96 }}
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                textDecoration: "none",
                 padding: "13px 28px",
                 borderRadius: "14px 4px 14px 4px",
                 background: "rgba(255,255,255,0.03)",
@@ -621,19 +682,21 @@ export default function Hero() {
                 transition: "border-color 0.3s, color 0.3s, background 0.3s",
                 backdropFilter: "blur(8px)",
               }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--accent)";
-                (e.currentTarget as HTMLButtonElement).style.color = "var(--text-primary)";
-                (e.currentTarget as HTMLButtonElement).style.background = "rgba(108,99,255,0.08)";
+              onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                const target = e.currentTarget as HTMLAnchorElement;
+                target.style.borderColor = "var(--accent)";
+                target.style.color = "var(--text-primary)";
+                target.style.background = "rgba(108,99,255,0.08)";
               }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border-glass-hover)";
-                (e.currentTarget as HTMLButtonElement).style.color = "var(--text-secondary)";
-                (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.03)";
+              onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                const target = e.currentTarget as HTMLAnchorElement;
+                target.style.borderColor = "var(--border-glass-hover)";
+                target.style.color = "var(--text-secondary)";
+                target.style.background = "rgba(255,255,255,0.03)";
               }}
             >
               Contact
-            </motion.button>
+            </motion.a>
           </div>
         </motion.div>
       </div>

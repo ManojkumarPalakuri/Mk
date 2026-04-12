@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
+import AskManoj from "@/components/ui/ask-manoj";
 
 export const metadata: Metadata = {
   title: "Manoj Kumar Palakuri — Full-Stack Developer & Security Researcher",
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
+        <AskManoj />
       </body>
     </html>
   );
