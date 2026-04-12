@@ -716,12 +716,13 @@ export default function AskManoj() {
         onClick={() => { setShowGreet(false); setIsOpen(v => !v); }}
         whileHover={{ scale: 1.06, boxShadow: "0 0 28px rgba(108,99,255,0.45)" }}
         whileTap={{ scale: 0.93 }}
+        className="mobile-fab"
         style={{
           position: "fixed",
-          bottom: "clamp(1.2rem,2.5vh,1.6rem)",
+          bottom: "calc(max(1.2rem, 80px) + env(safe-area-inset-bottom))",
           right: "clamp(1.2rem,3vw,1.6rem)",
-          zIndex: 9999,
-          width: 48,                             // slightly bigger FAB
+          zIndex: 2000,
+          width: 48,
           height: 48,
           borderRadius: "4px 14px 4px 14px",
           background: "var(--gradient-1)",
@@ -732,9 +733,18 @@ export default function AskManoj() {
           justifyContent: "center",
           cursor: "pointer",
           boxShadow: "0 0 22px rgba(108,99,255,0.32)",
+          touchAction: "manipulation",
         }}
         aria-label="Ask Manoj AI"
       >
+        <style dangerouslySetInnerHTML={{ __html: `
+          @media (max-width: 768px) {
+            .mobile-fab {
+              bottom: calc(88px + env(safe-area-inset-bottom)) !important;
+              right: 1.25rem !important;
+            }
+          }
+        `}} />
         <AnimatePresence mode="wait" initial={false}>
           {isOpen ? (
             <motion.span

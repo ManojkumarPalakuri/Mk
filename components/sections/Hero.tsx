@@ -171,11 +171,12 @@ export default function Hero() {
         href="/r1.pdf"
         target="_blank"
         rel="noopener noreferrer"
+        className="mobile-resume-btn"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 1, ease: [0.22, 1, 0.36, 1] }}
         style={{
-          position: "absolute",
+          position: "fixed",
           top: "clamp(2rem, 5vh, 3.5rem)",
           right: "clamp(1.5rem, 5vw, 4rem)",
           display: "flex",
@@ -192,11 +193,13 @@ export default function Hero() {
           letterSpacing: "0.05em",
           textTransform: "uppercase",
           textDecoration: "none",
-          zIndex: 100,
+          zIndex: 1100,
           cursor: "pointer",
           backdropFilter: "blur(12px)",
           transition: "all 0.3s ease",
           boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+          minHeight: "44px",
+          minWidth: "44px",
         }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLAnchorElement;
