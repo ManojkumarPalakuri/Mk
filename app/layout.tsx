@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import AskManoj from "@/components/ui/ask-manoj";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export const metadata: Metadata = {
   title: "Manoj Kumar Palakuri — Full-Stack Developer & Security Researcher",
@@ -23,6 +25,21 @@ export const metadata: Metadata = {
     description:
       "Building secure, scalable systems at the intersection of cryptography and web technology.",
     type: "website",
+    url: "https://mk-portfolio.vercel.app", // Adjust if you have a custom domain
+    images: [
+      {
+        url: "/og-image.png", // We'll assume a standard OG image path
+        width: 1200,
+        height: 630,
+        alt: "Manoj Kumar Palakuri Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Manoj Kumar Palakuri — Developer & Security Researcher",
+    description: "Full-Stack Developer Specializing in Cybersecurity & AI.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -36,6 +53,8 @@ export default function RootLayout({
       <body>
         <SmoothScroll>{children}</SmoothScroll>
         <AskManoj />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

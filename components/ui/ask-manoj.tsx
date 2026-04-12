@@ -3,7 +3,7 @@
 import { useChat } from "ai/react";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Send, X, MessageSquare, ChevronRight, Trash2 } from "lucide-react";
+import { Send, X, MessageSquare, ChevronRight, Trash2, Volume2, VolumeX } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────
 // Typing indicator — matches site accent color
@@ -71,6 +71,8 @@ export default function AskManoj() {
   const [showClearConfirm, setShowClearConfirm]   = useState(false);
   const messagesEndRef                = useRef<HTMLDivElement>(null);
   const inputRef                      = useRef<HTMLInputElement>(null);
+  const [isMuted, setIsMuted]         = useState(true);
+  const [isSpeaking, setIsSpeaking]   = useState(false);
 
   const { messages, setMessages, input, handleInputChange, handleSubmit, append, isLoading } = useChat({
     api: "/api/chat",
@@ -143,6 +145,48 @@ export default function AskManoj() {
         "You can download Manoj's resume here: [Download Resume →](/r1.pdf)\n\nFeel free to reach out at **manojkumarpalakuri@gmail.com** after reviewing!",
     });
   }, [append]);
+
+  // ─────────────────────────────────────────────────────────────────
+  // Voice Synthesis Logic
+  // ─────────────────────────────────────────────────────────────────
+  const speak = useCallback((text: string) => {
+    if (isMuted || !('speechSynthesis' in window)) return;
+
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Find a good voice (optional, system default is usually fine)
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) || voices[0];
+    if (preferredVoice) utterance.voice = preferredVoice;
+
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    window.speechSynthesis.speak(utterance);
+  }, [isMuted]);
+
+  useEffect(() => {
+    if (messages.length > 0 && !isMuted) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === "assistant" && !isLoading) {
+        // Parse out any suggestions text for cleaner speech
+        const speechText = lastMessage.content.split("---SUGGESTIONS---")[0].trim();
+        speak(speechText);
+      }
+    }
+  }, [messages, isMuted, isLoading, speak]);
+
+  const toggleMute = () => {
+    if (!isMuted) window.speechSynthesis.cancel();
+    setIsMuted(!isMuted);
+  };
 
   // ── Styles matching design system exactly ──────────────────────
   const panelStyle: React.CSSProperties = {
@@ -433,6 +477,27 @@ export default function AskManoj() {
                     <Trash2 size={12} />
                   </motion.button>
                 )}
+                {/* Voice Toggle */}
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={toggleMute}
+                  title={isMuted ? "Unmute AI Voice" : "Mute AI Voice"}
+                  style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: "4px 10px 4px 10px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: isMuted ? "rgba(255,255,255,0.03)" : "rgba(108,99,255,0.12)",
+                    border: isMuted ? "1px solid var(--border-glass-hover)" : "1px solid var(--accent-dim)",
+                    color: isMuted ? "var(--text-secondary)" : "var(--accent)",
+                    cursor: "pointer",
+                    transition: "all 0.25s",
+                  }}
+                >
+                  {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} className={isSpeaking ? "animate-pulse" : ""} />}
+                </motion.button>
                 {/* Close — matches site ghost button style */}
                 <motion.button
                   whileTap={{ scale: 0.9 }}

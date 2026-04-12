@@ -511,31 +511,46 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            padding: "5px 14px",
-            borderRadius: 100,
-            border: "1px solid rgba(0,229,160,0.3)",
-            background: "rgba(0,229,160,0.07)",
-            marginBottom: "1.2rem",
-            fontSize: "0.72rem",
-            color: "var(--accent-green)",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            alignSelf: "flex-start",
-            backdropFilter: "blur(8px)",
-          }}
+          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          style={{ alignSelf: "flex-start", marginBottom: "1.2rem" }}
         >
-          <motion.span
-            animate={{ opacity: [1,0.3,1], boxShadow: ["0 0 6px var(--accent-green)","0 0 14px var(--accent-green)","0 0 6px var(--accent-green)"] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent-green)", flexShrink: 0, display: "inline-block" }}
-          />
-          Available for hire
+          <motion.div
+            animate={{ 
+              boxShadow: [
+                "0 0 0px rgba(0,229,160,0)",
+                "0 0 15px rgba(0,229,160,0.15)",
+                "0 0 0px rgba(0,229,160,0)"
+              ],
+              borderColor: [
+                "rgba(0,229,160,0.3)",
+                "rgba(0,229,160,0.6)",
+                "rgba(0,229,160,0.3)"
+              ]
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "5px 14px",
+              borderRadius: 100,
+              border: "1px solid rgba(0,229,160,0.3)",
+              background: "rgba(0,229,160,0.07)",
+              fontSize: "0.72rem",
+              color: "var(--accent-green)",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              fontWeight: 600,
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <motion.span
+              animate={{ opacity: [1,0.3,1], boxShadow: ["0 0 6px var(--accent-green)","0 0 14px var(--accent-green)","0 0 6px var(--accent-green)"] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent-green)", flexShrink: 0, display: "inline-block" }}
+            />
+            Available for hire
+          </motion.div>
         </motion.div>
 
         {/* Headline */}
