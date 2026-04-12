@@ -74,7 +74,7 @@ export default function AskManoj() {
   const [isMuted, setIsMuted]         = useState(true);
   const [isSpeaking, setIsSpeaking]   = useState(false);
 
-  const { messages, setMessages, input, handleInputChange, handleSubmit, append, isLoading } = useChat({
+  const { messages, setMessages, input, handleInputChange, handleSubmit, append, isLoading, error } = useChat({
     api: "/api/chat",
     initialMessages: [
       {
@@ -250,7 +250,7 @@ export default function AskManoj() {
             onClick={() => { setShowGreet(false); setIsOpen(true); }}
             style={{
               position: "fixed",
-              bottom: "5.5rem",
+              bottom: "9.5rem",
               right: "clamp(1rem,3vw,1.5rem)",
               zIndex: 9998,
               maxWidth: 220,
@@ -565,6 +565,31 @@ export default function AskManoj() {
                   style={{ ...aiBubble, padding: "0.6rem 0.9rem" }}
                 >
                   <TypingIndicator />
+                </motion.div>
+              )}
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  style={{
+                    alignSelf: "center",
+                    width: "100%",
+                    padding: "0.85rem 1rem",
+                    borderRadius: "4px 14px 4px 14px",
+                    background: "rgba(255,80,80,0.06)",
+                    border: "1px solid rgba(255,80,80,0.15)",
+                    color: "rgba(255,100,100,1)",
+                    fontSize: "0.8rem",
+                    textAlign: "center",
+                    marginTop: "0.8rem",
+                    marginBottom: "0.8rem",
+                  }}
+                >
+                  <div style={{ fontWeight: 700, marginBottom: "0.25rem", textTransform: "uppercase", fontSize: "0.6rem", letterSpacing: "0.1em" }}>
+                    Connection Error
+                  </div>
+                  System offline. Please try again later or email Manoj at <b>manojkumarpalakuri@gmail.com</b>
                 </motion.div>
               )}
 
