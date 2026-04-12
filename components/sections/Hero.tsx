@@ -14,7 +14,7 @@ function TypewriterText({ texts }: { texts: string[] }) {
   const [idx, setIdx]        = useState(0);
   const [displayed, setDisp] = useState("");
   const [deleting, setDel]   = useState(false);
-  const t                    = useRef<ReturnType<typeof setTimeout>>();
+  const t                    = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const cur = texts[idx % texts.length];
@@ -28,7 +28,7 @@ function TypewriterText({ texts }: { texts: string[] }) {
       setDel(false);
       setIdx(i => (i + 1) % texts.length);
     }
-    return () => clearTimeout(t.current);
+    return () => { if (t.current) clearTimeout(t.current); };
   }, [displayed, deleting, idx, texts]);
 
   return (
