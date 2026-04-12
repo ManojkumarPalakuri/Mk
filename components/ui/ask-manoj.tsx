@@ -220,7 +220,16 @@ export default function AskManoj() {
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
             }}
+            className="mobile-greet-bubble"
           >
+            <style dangerouslySetInnerHTML={{ __html: `
+              @media (max-width: 768px) {
+                .mobile-greet-bubble {
+                  bottom: calc(148px + env(safe-area-inset-bottom)) !important;
+                  right: 1.25rem !important;
+                }
+              }
+            `}} />
             {/* Accent line – same as About section */}
             <div style={{
               height: 1,
