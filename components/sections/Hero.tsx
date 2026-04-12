@@ -214,6 +214,14 @@ export default function Hero() {
           el.style.background = "rgba(255,255,255,0.03)";
         }}
       >
+        <style dangerouslySetInnerHTML={{ __html: `
+          @media (max-width: 768px) {
+            .mobile-resume-btn {
+              top: 90px !important;
+              right: 1.25rem !important;
+            }
+          }
+        `}} />
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="7 10 12 15 17 10"></polyline>
