@@ -7,7 +7,10 @@ import { experience } from "@/data/portfolio";
 type Exp = (typeof experience)[0];
 
 function Card({ item, index }: { item: Exp; index: number }) {
-  const [open, setOpen] = useState(false);
+  const [isPersistent, setIsPersistent] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const isOpen = isPersistent || isHovered;
 
   /* Alternating indent — odd cards shift right */
   const offsetX = index % 2 === 0
@@ -20,11 +23,18 @@ function Card({ item, index }: { item: Exp; index: number }) {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-8%" }}
       transition={{ duration: 0.65, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      style={{ paddingLeft: offsetX, paddingRight: "clamp(1.5rem,4vw,3rem)" }}
+      style={{ paddingLeft: offsetX, paddingRight: "clamp(1.5rem,4vw,3rem)", position: "relative" }}
     >
       <motion.div
-        onClick={() => setOpen(!open)}
-        whileHover={{ borderColor: `${item.color}50` }}
+        onClick={() => setIsPersistent(!isPersistent)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        whileHover={{ 
+          borderColor: `${item.color}80`,
+          scale: 1.02,
+          y: -5,
+          transition: { duration: 0.3, ease: "easeOut" }
+        }}
         style={{
           position: "relative",
           borderRadius: index % 2 === 0 ? "4px 20px 20px 20px" : "20px 4px 20px 20px",
@@ -32,11 +42,20 @@ function Card({ item, index }: { item: Exp; index: number }) {
           border: "1px solid var(--border-glass)",
           padding: "1.75rem 2rem",
           cursor: "pointer",
-          transition: "border-color 0.3s, box-shadow 0.3s",
+          transition: "border-color 0.3s, box-shadow 0.3s, background 0.3s",
           maxWidth: "55ch",
+          zIndex: 2,
         }}
-        onMouseEnter={(e) => ((e.currentTarget as HTMLDivElement).style.boxShadow = `0 8px 40px ${item.color}18`)}
-        onMouseLeave={(e) => ((e.currentTarget as HTMLDivElement).style.boxShadow = "none")}
+        onMouseEnter={(e) => {
+          setIsHovered(true);
+          (e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 40px ${item.color}15`;
+          (e.currentTarget as HTMLDivElement).style.background = "var(--bg-glass-hover)";
+        }}
+        onMouseLeave={(e) => {
+          setIsHovered(false);
+          (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+          (e.currentTarget as HTMLDivElement).style.background = "var(--bg-secondary)";
+        }}
       >
         {/* Color tab */}
         <div style={{
@@ -96,8 +115,8 @@ function Card({ item, index }: { item: Exp; index: number }) {
         {/* Expand / collapse bullets */}
         <motion.div
           initial={false}
-          animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           style={{ overflow: "hidden" }}
         >
           <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.45rem", paddingTop: "0.5rem" }}>
@@ -112,13 +131,13 @@ function Card({ item, index }: { item: Exp; index: number }) {
 
         {/* Toggle hint */}
         <motion.div
-          animate={{ rotate: open ? 180 : 0 }}
+          animate={{ rotate: isOpen ? 180 : 0, color: isOpen ? item.color : "var(--text-muted)" }}
           transition={{ duration: 0.3 }}
-          style={{ marginTop: "0.75rem", color: "var(--text-muted)", fontSize: "0.7rem", display: "flex", alignItems: "center", gap: 4 }}
+          style={{ marginTop: "0.75rem", fontSize: "0.7rem", display: "flex", alignItems: "center", gap: 4 }}
         >
           ▼
           <span style={{ fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            {open ? "Collapse" : "Expand"}
+            {isPersistent ? "Locked" : isOpen ? "Collapse" : "Expand"}
           </span>
         </motion.div>
       </motion.div>
