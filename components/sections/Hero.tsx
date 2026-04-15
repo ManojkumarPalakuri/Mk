@@ -4,17 +4,16 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const roles = [
   "Full-Stack Developer",
-  "Security Researcher",
   "Cloud Engineer",
   "Cryptography Enthusiast",
 ];
 
 /* ─── Typewriter ─────────────────────────────────────────────── */
 function TypewriterText({ texts }: { texts: string[] }) {
-  const [idx, setIdx]        = useState(0);
+  const [idx, setIdx] = useState(0);
   const [displayed, setDisp] = useState("");
-  const [deleting, setDel]   = useState(false);
-  const t                    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [deleting, setDel] = useState(false);
+  const t = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const cur = texts[idx % texts.length];
@@ -56,10 +55,10 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 }
 
 const stats = [
-  { value: 5, suffix: "+", label: "Projects"    },
-  { value: 3, suffix: "",  label: "Internships"  },
-  { value: 9, suffix: ".02", label: "CGPA"       },
-  { value: 1, suffix: "",  label: "Published"    },
+  { value: 5, suffix: "+", label: "Projects" },
+  { value: 3, suffix: "", label: "Internships" },
+  { value: 9, suffix: ".02", label: "CGPA" },
+  { value: 1, suffix: "", label: "Published" },
 ];
 
 /* ─── Particle ───────────────────────────────────────────────── */
@@ -74,14 +73,14 @@ function generateParticles(count: number): Particle[] {
     "rgba(139,92,246,0.6)",
   ];
   return Array.from({ length: count }, () => ({
-    x:     Math.random() * 100,
-    y:     Math.random() * 100,
-    size:  Math.random() * 2 + 0.5,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 2 + 0.5,
     color: colors[Math.floor(Math.random() * colors.length)],
-    dur:   Math.random() * 7 + 5,
+    dur: Math.random() * 7 + 5,
     delay: Math.random() * 5,
-    dx:    (Math.random() - 0.5) * 36,
-    dy:    (Math.random() - 0.5) * 36,
+    dx: (Math.random() - 0.5) * 36,
+    dy: (Math.random() - 0.5) * 36,
   }));
 }
 
@@ -122,8 +121,8 @@ export default function Hero() {
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const headY = useTransform(scrollYProgress, [0, 1], [0, -130]);
-  const subY  = useTransform(scrollYProgress, [0, 1], [0, -65]);
-  const bgY   = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const subY = useTransform(scrollYProgress, [0, 1], [0, -65]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 80]);
 
   /* Mouse spotlight: write directly to a CSS custom prop on the section
      — zero React re-renders, runs entirely off the main thread paint path */
@@ -131,8 +130,8 @@ export default function Hero() {
     const el = sectionRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width)  * 100;
-    const y = ((e.clientY - rect.top)  / rect.height) * 100;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
     el.style.setProperty("--spot-x", `${x}%`);
     el.style.setProperty("--spot-y", `${y}%`);
   }, []);
@@ -214,7 +213,8 @@ export default function Hero() {
           el.style.background = "rgba(255,255,255,0.03)";
         }}
       >
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           @media (max-width: 768px) {
             .mobile-resume-btn {
               top: 90px !important;
@@ -301,10 +301,10 @@ export default function Hero() {
 
       {/* 4 ── Glowing rings ───────────────────────────────────── */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 2 }}>
-        <GlowRing size={460} x="72%" y="38%" color="rgba(108,99,255,0.25)" dur={10} delay={0}   />
-        <GlowRing size={280} x="68%" y="60%" color="rgba(0,229,160,0.2)"   dur={13} delay={2.5} />
-        <GlowRing size={180} x="78%" y="25%" color="rgba(59,130,246,0.3)"  dur={8}  delay={1}   />
-        <GlowRing size={120} x="58%" y="70%" color="rgba(139,92,246,0.25)" dur={9}  delay={4}   />
+        <GlowRing size={460} x="72%" y="38%" color="rgba(108,99,255,0.25)" dur={10} delay={0} />
+        <GlowRing size={280} x="68%" y="60%" color="rgba(0,229,160,0.2)" dur={13} delay={2.5} />
+        <GlowRing size={180} x="78%" y="25%" color="rgba(59,130,246,0.3)" dur={8} delay={1} />
+        <GlowRing size={120} x="58%" y="70%" color="rgba(139,92,246,0.25)" dur={9} delay={4} />
 
         {/* Static concentric dashed ring (decorative) */}
         <motion.div
@@ -361,24 +361,24 @@ export default function Hero() {
               x: [0, p.dx, -p.dx * 0.5, p.dx * 0.7, 0],
               y: [0, p.dy, -p.dy * 0.6, p.dy * 0.4, 0],
               opacity: [0, 0.9, 0.55, 0.8, 0],
-              scale:   [0, 1, 0.85, 1.05, 0],
+              scale: [0, 1, 0.85, 1.05, 0],
             }}
             transition={{
               duration: p.dur,
-              delay:    p.delay,
-              repeat:   Infinity,
-              ease:     "easeInOut",
+              delay: p.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
             style={{
-              position:     "absolute",
-              left:         `${p.x}%`,
-              top:          `${p.y}%`,
-              width:        p.size,
-              height:       p.size,
+              position: "absolute",
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+              width: p.size,
+              height: p.size,
               borderRadius: "50%",
-              background:   p.color,
-              boxShadow:    `0 0 ${p.size * 3}px ${p.color}`,
-              willChange:   "transform, opacity",
+              background: p.color,
+              boxShadow: `0 0 ${p.size * 3}px ${p.color}`,
+              willChange: "transform, opacity",
             }}
           />
         ))}
@@ -391,37 +391,37 @@ export default function Hero() {
       >
         <defs>
           <linearGradient id="line1" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%"   stopColor="transparent" />
-            <stop offset="50%"  stopColor="#6c63ff" />
+            <stop offset="0%" stopColor="transparent" />
+            <stop offset="50%" stopColor="#6c63ff" />
             <stop offset="100%" stopColor="transparent" />
           </linearGradient>
           <linearGradient id="line2" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%"   stopColor="transparent" />
-            <stop offset="50%"  stopColor="#00e5a0" />
+            <stop offset="0%" stopColor="transparent" />
+            <stop offset="50%" stopColor="#00e5a0" />
             <stop offset="100%" stopColor="transparent" />
           </linearGradient>
         </defs>
         {/* Horizontal rule lines */}
         <motion.line x1="0" y1="33%" x2="100%" y2="28%"
           stroke="url(#line1)" strokeWidth="0.5"
-          initial={{ opacity: 0 }} animate={{ opacity: [0,0.6,0] }}
+          initial={{ opacity: 0 }} animate={{ opacity: [0, 0.6, 0] }}
           transition={{ duration: 6, repeat: Infinity, delay: 0 }} style={{ willChange: "opacity" }} />
         <motion.line x1="0" y1="66%" x2="100%" y2="70%"
           stroke="url(#line2)" strokeWidth="0.5"
-          initial={{ opacity: 0 }} animate={{ opacity: [0,0.6,0] }}
+          initial={{ opacity: 0 }} animate={{ opacity: [0, 0.6, 0] }}
           transition={{ duration: 8, repeat: Infinity, delay: 2 }} style={{ willChange: "opacity" }} />
         {/* Diagonal */}
         <motion.line x1="60%" y1="0" x2="100%" y2="60%"
           stroke="url(#line1)" strokeWidth="0.5"
-          initial={{ opacity: 0 }} animate={{ opacity: [0,0.6,0] }}
+          initial={{ opacity: 0 }} animate={{ opacity: [0, 0.6, 0] }}
           transition={{ duration: 7, repeat: Infinity, delay: 1 }} style={{ willChange: "opacity" }} />
         {/* Corner nodes */}
-        {[[65,20],[78,45],[82,70],[55,80]].map(([cx,cy],i) => (
+        {[[65, 20], [78, 45], [82, 70], [55, 80]].map(([cx, cy], i) => (
           <motion.circle
             key={i} cx={`${cx}%`} cy={`${cy}%`} r="2"
             fill="rgba(108,99,255,0.5)"
-            animate={{ opacity: [0,1,0], scale: [1,1.5,1] }}
-            transition={{ duration: 3+i, repeat: Infinity, delay: i*0.8 }}
+            animate={{ opacity: [0, 1, 0], scale: [1, 1.5, 1] }}
+            transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.8 }}
             style={{ transformOrigin: `${cx}% ${cy}%`, willChange: "opacity, transform" }}
           />
         ))}
@@ -515,7 +515,7 @@ export default function Hero() {
           style={{ alignSelf: "flex-start", marginBottom: "1.2rem" }}
         >
           <motion.div
-            animate={{ 
+            animate={{
               boxShadow: [
                 "0 0 0px rgba(0,229,160,0)",
                 "0 0 15px rgba(0,229,160,0.15)",
@@ -545,7 +545,7 @@ export default function Hero() {
             }}
           >
             <motion.span
-              animate={{ opacity: [1,0.3,1], boxShadow: ["0 0 6px var(--accent-green)","0 0 14px var(--accent-green)","0 0 6px var(--accent-green)"] }}
+              animate={{ opacity: [1, 0.3, 1], boxShadow: ["0 0 6px var(--accent-green)", "0 0 14px var(--accent-green)", "0 0 6px var(--accent-green)"] }}
               transition={{ duration: 2, repeat: Infinity }}
               style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent-green)", flexShrink: 0, display: "inline-block" }}
             />

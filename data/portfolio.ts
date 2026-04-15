@@ -195,11 +195,36 @@ export const skills = {
 };
 
 export const certifications = [
-  "Matrix Algebra for Engineers – Coursera",
-  "Computer Networking – Coursera",
-  "Digital 101 Journey – NASSCOM FutureSkills",
-  "Programming Fundamentals – Coursera",
-  "Frontend Development using React – Coursera",
+  {
+    title: "Matrix Algebra for Engineers",
+    issuer: "Coursera (Duke University)",
+    date: "2024",
+    details: "Mastered linear transformations, eigenvalues, and application of matrices in solving engineering systems."
+  },
+  {
+    title: "Computer Networking",
+    issuer: "Coursera (Google)",
+    date: "2024",
+    details: "Deep dive into TCP/IP models, network protocols, DNS, and troubleshooting connectivity issues."
+  },
+  {
+    title: "Digital 101 Journey",
+    issuer: "NASSCOM FutureSkills",
+    date: "2023",
+    details: "Foundational training in emerging technologies: AI, Cloud, Cybersecurity, and Data Science."
+  },
+  {
+    title: "Programming Fundamentals",
+    issuer: "Coursera",
+    date: "2023",
+    details: "Developed core logical thinking, implementation of algorithms, and efficient code structure."
+  },
+  {
+    title: "Frontend Development using React",
+    issuer: "Coursera (Meta)",
+    date: "2024",
+    details: "Advanced React concepts including hooks, state management, and component architecture."
+  },
 ];
 
 export const research = [

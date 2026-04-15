@@ -12,6 +12,83 @@ const categoryMeta: Record<string, { color: string; from: string; to: string; nu
   "Tools":                  { color: "#8b5cf6", from: "#8b5cf6", to: "#ec4899", num: "06" },
 };
 
+function CertificateCard({ cert, index }: { cert: any; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.07 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ 
+        scale: 1.02, 
+        borderColor: "rgba(108,99,255,0.4)",
+        background: "rgba(108,99,255,0.08)" 
+      }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+        padding: "12px 20px",
+        borderRadius: index % 2 === 0 ? "4px 16px 4px 16px" : "16px 4px 16px 4px",
+        background: "rgba(108,99,255,0.05)",
+        border: "1px solid rgba(108,99,255,0.2)",
+        cursor: "default",
+        transition: "all 0.3s ease",
+        width: "100%",
+        maxWidth: "fit-content",
+        overflow: "hidden"
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <span style={{
+          width: 20,
+          height: 20,
+          borderRadius: "50%",
+          background: "var(--gradient-1)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "0.6rem",
+          fontWeight: 800,
+          color: "#fff",
+          flexShrink: 0,
+        }}>
+          ✓
+        </span>
+        <div>
+          <h4 style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>{cert.title}</h4>
+          <p style={{ fontSize: "0.65rem", color: "var(--accent)", fontWeight: 600, display: "flex", gap: 6 }}>
+            <span>{cert.issuer}</span>
+            <span style={{ opacity: 0.5 }}>•</span>
+            <span>{cert.date}</span>
+          </p>
+        </div>
+      </div>
+
+      <motion.div
+        initial={false}
+        animate={{ height: isHovered ? "auto" : 0, opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <p style={{ 
+          fontSize: "0.75rem", 
+          color: "var(--text-secondary)", 
+          marginTop: 4, 
+          lineHeight: 1.5,
+          paddingLeft: 32,
+          maxWidth: "50ch"
+        }}>
+          {cert.details}
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const categories = Object.keys(skills);
@@ -222,45 +299,10 @@ export default function Skills() {
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
             {certifications.map((cert, i) => (
-              <motion.div
-                key={cert}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-                whileHover={{ x: 4 }}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: "10px 18px",
-                  borderRadius: i % 2 === 0 ? "4px 16px 4px 16px" : "16px 4px 16px 4px",
-                  background: "rgba(108,99,255,0.06)",
-                  border: "1px solid rgba(108,99,255,0.2)",
-                  fontSize: "0.82rem",
-                  color: "var(--text-secondary)",
-                  cursor: "default",
-                }}
-              >
-                <span style={{
-                  width: 18,
-                  height: 18,
-                  borderRadius: "50%",
-                  background: "var(--gradient-1)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "0.55rem",
-                  fontWeight: 800,
-                  color: "#fff",
-                  flexShrink: 0,
-                }}>
-                  ✓
-                </span>
-                {cert}
-              </motion.div>
+              <CertificateCard key={i} cert={cert} index={i} />
             ))}
           </div>
+
         </motion.div>
       </div>
 
