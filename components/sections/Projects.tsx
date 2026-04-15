@@ -42,7 +42,7 @@ function ProjectRow({
         style={{
           position: "absolute",
           inset: 0,
-          background: `linear-gradient(90deg, ${project.gradientFrom}12, ${project.gradientTo}08)`,
+          background: `linear-gradient(90deg, ${project.gradientFrom}25, ${project.gradientTo}15)`,
           transformOrigin: "left",
           pointerEvents: "none",
         }}
@@ -124,8 +124,8 @@ function ProjectRow({
               <span key={t} style={{
                 padding: "3px 8px",
                 borderRadius: 4,
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "var(--bg-glass)",
+                border: "1px solid var(--border-glass)",
                 fontSize: "0.65rem",
                 color: "var(--text-muted)",
                 fontFamily: "'Space Grotesk',monospace",
@@ -261,8 +261,8 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             <span key={t} style={{
               padding: "5px 12px",
               borderRadius: 6,
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: "var(--bg-glass)",
+              border: "1px solid var(--border-glass)",
               fontSize: "0.75rem",
               color: "var(--text-muted)",
               fontFamily: "'Space Grotesk',monospace",
@@ -382,7 +382,7 @@ export default function Projects() {
             fontSize: "clamp(6rem,12vw,12rem)",
             lineHeight: 1,
             color: "transparent",
-            WebkitTextStroke: "1px rgba(255,255,255,0.04)",
+            WebkitTextStroke: "1px var(--deco-stroke)",
             userSelect: "none",
           }}>
             {String(projects.length).padStart(2, "0")}

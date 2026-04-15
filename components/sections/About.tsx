@@ -58,7 +58,7 @@ export default function About() {
           fontSize: "clamp(18rem,40vw,50rem)",
           lineHeight: 0.8,
           color: "transparent",
-          WebkitTextStroke: "1px rgba(108,99,255,0.07)",
+          WebkitTextStroke: "1px var(--deco-stroke)",
           pointerEvents: "none",
           userSelect: "none",
           zIndex: 0,
@@ -244,7 +244,7 @@ export default function About() {
                   position: "absolute",
                   inset: 10,
                   borderRadius: "50%",
-                  border: "1px dashed rgba(108,99,255,0.25)",
+                  border: "1px dashed var(--accent-dim)",
                 }}
               />
               {/* MK center — use exact pixel inset so FM scale doesn't break centring */}

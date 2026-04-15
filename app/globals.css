@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 :root {
+  --nav-width: 80px;
   --bg-primary: #080810;
   --bg-secondary: #0f0f1a;
   --bg-tertiary: #16162a;
@@ -20,7 +21,8 @@
   --gradient-2: linear-gradient(135deg, #ff4d6d, #fbbf24);
   --gradient-3: linear-gradient(135deg, #00e5a0, #00d4ff);
   --gradient-4: linear-gradient(135deg, #8b5cf6, #ec4899);
-  --nav-width: 80px;
+  --deco-stroke: rgba(255, 255, 255, 0.06);
+  --nav-bg: rgba(8, 8, 16, 0.7);
 }
 
 * {
@@ -105,7 +107,7 @@ section {
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
 /* Selection */
-::selection { background: rgba(108, 99, 255, 0.25); color: #fff; }
+::selection { background: var(--accent-dim); color: var(--text-primary); }
 
 /* Animated noise film grain */
 body::after {
@@ -261,7 +263,7 @@ input, textarea, select {
   font-size: clamp(8rem, 20vw, 20rem);
   line-height: 0.85;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+  -webkit-text-stroke: 1px var(--deco-stroke);
   pointer-events: none;
   user-select: none;
 }

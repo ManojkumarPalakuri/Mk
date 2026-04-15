@@ -34,8 +34,8 @@ function CertificateCard({ cert, index }: { cert: any; index: number }) {
         gap: 8,
         padding: "12px 20px",
         borderRadius: index % 2 === 0 ? "4px 16px 4px 16px" : "16px 4px 16px 4px",
-        background: "rgba(108,99,255,0.05)",
-        border: "1px solid rgba(108,99,255,0.2)",
+        background: "var(--bg-secondary)",
+        border: "1px solid var(--border-glass)",
         cursor: "default",
         transition: "all 0.3s ease",
         width: "100%",
@@ -99,8 +99,8 @@ function ResearchCard({ item }: { item: any }) {
       style={{
         padding: "1.75rem",
         borderRadius: "20px 4px 20px 4px",
-        background: "rgba(0,229,160,0.03)",
-        border: "1px solid rgba(0,229,160,0.2)",
+        background: "var(--bg-secondary)",
+        border: "1px solid var(--border-glass-hover)",
         transition: "all 0.3s ease",
         height: "100%",
         display: "flex",
@@ -112,7 +112,7 @@ function ResearchCard({ item }: { item: any }) {
         <div style={{
           padding: "6px 12px",
           borderRadius: "8px",
-          background: "rgba(0,229,160,0.15)",
+          background: "var(--accent-dim)",
           color: "var(--accent-green)",
           fontSize: "0.6rem",
           fontWeight: 700,
@@ -142,7 +142,7 @@ function ResearchCard({ item }: { item: any }) {
           fontSize: "0.8rem",
           color: "var(--text-secondary)",
           lineHeight: 1.6,
-          borderTop: "1px solid rgba(0,229,160,0.1)",
+          borderTop: "1px solid var(--border-glass)",
           paddingTop: "1rem"
         }}>
           {item.description}
@@ -255,9 +255,9 @@ export default function Skills() {
                 style={{
                   padding: "8px 18px",
                   borderRadius: "12px 4px 12px 4px",
-                  background: isActive ? `${m.color}18` : "var(--bg-glass)",
-                  border: `1px solid ${isActive ? m.color + "50" : "var(--border-glass)"}`,
-                  color: isActive ? m.color : "var(--text-secondary)",
+                  background: isActive ? "var(--accent-dim)" : "var(--bg-glass)",
+                  border: `1px solid ${isActive ? "var(--accent)" : "var(--border-glass)"}`,
+                  color: isActive ? "var(--accent)" : "var(--text-secondary)",
                   fontSize: "0.78rem",
                   fontWeight: 700,
                   cursor: "pointer",
@@ -350,7 +350,8 @@ export default function Skills() {
           gap: "3rem", 
           marginTop: "6rem",
           position: "relative",
-          zIndex: 2
+          zIndex: 2,
+          alignItems: "start"
         }}>
           {/* Left Column: Certifications */}
           <motion.div
@@ -382,16 +383,19 @@ export default function Skills() {
           >
             <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "2rem" }}>
               <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-muted)" }}>
-                Featured Research
+                Featured Presentation
               </span>
               <div style={{ flex: 1, height: 1, background: "var(--border-glass)" }} />
             </div>
 
-            {research.map((item, i) => (
-              <ResearchCard key={i} item={item} />
-            ))}
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {research.map((item, i) => (
+                <ResearchCard key={i} item={item} />
+              ))}
+            </div>
           </motion.div>
         </div>
+
 
       </div>
 

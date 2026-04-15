@@ -27,8 +27,16 @@ function Card({ item, index }: { item: Exp; index: number }) {
     >
       <motion.div
         onClick={() => setIsPersistent(!isPersistent)}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={(e) => {
+          setIsHovered(true);
+          (e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 40px ${item.color}15`;
+          (e.currentTarget as HTMLDivElement).style.background = "var(--bg-tertiary)";
+        }}
+        onMouseLeave={(e) => {
+          setIsHovered(false);
+          (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+          (e.currentTarget as HTMLDivElement).style.background = "var(--bg-secondary)";
+        }}
         whileHover={{ 
           borderColor: `${item.color}80`,
           scale: 1.02,
@@ -45,16 +53,6 @@ function Card({ item, index }: { item: Exp; index: number }) {
           transition: "border-color 0.3s, box-shadow 0.3s, background 0.3s",
           maxWidth: "55ch",
           zIndex: 2,
-        }}
-        onMouseEnter={(e) => {
-          setIsHovered(true);
-          (e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 40px ${item.color}15`;
-          (e.currentTarget as HTMLDivElement).style.background = "var(--bg-glass-hover)";
-        }}
-        onMouseLeave={(e) => {
-          setIsHovered(false);
-          (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-          (e.currentTarget as HTMLDivElement).style.background = "var(--bg-secondary)";
         }}
       >
         {/* Color tab */}

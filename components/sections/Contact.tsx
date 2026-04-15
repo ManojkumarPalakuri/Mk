@@ -193,8 +193,8 @@ export default function Contact() {
                 gap: 12,
                 padding: "1rem 1.5rem",
                 borderRadius: "4px 16px 16px 16px",
-                background: "rgba(0,229,160,0.05)",
-                border: "1px solid rgba(0,229,160,0.2)",
+                background: "var(--accent-dim)",
+                border: "1px solid var(--border-glass)",
                 marginBottom: "2rem",
               }}
             >

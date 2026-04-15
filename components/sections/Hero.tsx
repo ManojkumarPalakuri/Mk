@@ -58,7 +58,7 @@ const stats = [
   { value: 5, suffix: "+", label: "Projects" },
   { value: 3, suffix: "", label: "Internships" },
   { value: 9, suffix: ".02", label: "CGPA" },
-  { value: 1, suffix: "", label: "Published" },
+  { value: 1, suffix: "", label: "Presented" },
 ];
 
 /* ─── Particle ───────────────────────────────────────────────── */
@@ -210,7 +210,7 @@ export default function Hero() {
           const el = e.currentTarget as HTMLAnchorElement;
           el.style.borderColor = "var(--border-glass-hover)";
           el.style.color = "var(--text-secondary)";
-          el.style.background = "rgba(255,255,255,0.03)";
+          el.style.background = "var(--bg-glass)";
         }}
       >
         <style dangerouslySetInnerHTML={{
@@ -771,7 +771,7 @@ export default function Hero() {
           fontSize: "clamp(8rem,24vw,26rem)",
           lineHeight: 0.8,
           color: "transparent",
-          WebkitTextStroke: "1px rgba(108,99,255,0.06)",
+          WebkitTextStroke: "1px var(--deco-stroke)",
           pointerEvents: "none",
           userSelect: "none",
           zIndex: 0,

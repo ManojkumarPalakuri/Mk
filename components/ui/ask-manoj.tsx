@@ -238,6 +238,15 @@ export default function AskManoj() {
 
   return (
     <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (max-width: 768px) {
+          .mobile-greet-bubble {
+            bottom: calc(148px + env(safe-area-inset-bottom)) !important;
+            right: 1.25rem !important;
+          }
+        }
+      `}} />
+
       {/* ── Greeting Bubble ────────────────────────────────────── */}
       <AnimatePresence>
         {showGreet && !isOpen && (
@@ -263,17 +272,10 @@ export default function AskManoj() {
               cursor: "pointer",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
+              willChange: "transform, opacity",
             }}
             className="mobile-greet-bubble"
           >
-            <style dangerouslySetInnerHTML={{ __html: `
-              @media (max-width: 768px) {
-                .mobile-greet-bubble {
-                  bottom: calc(148px + env(safe-area-inset-bottom)) !important;
-                  right: 1.25rem !important;
-                }
-              }
-            `}} />
             {/* Accent line – same as About section */}
             <div style={{
               height: 1,
@@ -810,11 +812,24 @@ export default function AskManoj() {
         )}
       </AnimatePresence>
 
-      {/* ── Floating Action Button ───────────────────────────────── */}
+
       <motion.button
         onClick={() => { setShowGreet(false); setIsOpen(v => !v); }}
-        whileHover={{ scale: 1.06, boxShadow: "0 0 28px rgba(108,99,255,0.45)" }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ 
+          opacity: 1, 
+          scale: 1,
+          boxShadow: isOpen 
+            ? "0 0 20px rgba(108,99,255,0.3)" 
+            : ["0 0 12px rgba(108,99,255,0.2)", "0 0 32px rgba(108,99,255,0.45)", "0 0 12px rgba(108,99,255,0.2)"]
+        }}
+        whileHover={{ scale: 1.06, boxShadow: "0 0 40px rgba(108,99,255,0.6)" }}
         whileTap={{ scale: 0.93 }}
+        transition={{
+          boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+          opacity: { duration: 0.5 },
+          scale: { type: "spring", stiffness: 400, damping: 25 }
+        }}
         className="mobile-fab"
         style={{
           position: "fixed",
@@ -824,7 +839,8 @@ export default function AskManoj() {
           width: 48,
           height: 48,
           borderRadius: "4px 14px 4px 14px",
-          background: "var(--gradient-1)",
+          background: "linear-gradient(135deg, var(--accent) 0%, #3b82f6 50%, var(--accent) 100%)",
+          backgroundSize: "200% auto",
           border: "none",
           color: "#fff",
           display: "flex",
@@ -833,10 +849,19 @@ export default function AskManoj() {
           cursor: "pointer",
           boxShadow: "0 0 22px rgba(108,99,255,0.32)",
           touchAction: "manipulation",
+          willChange: "transform, box-shadow",
         }}
         aria-label="Ask Manoj AI"
       >
-        <style dangerouslySetInnerHTML={{ __html: `
+        <motion.style dangerouslySetInnerHTML={{ __html: `
+          @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .mobile-fab {
+            animation: shimmer 6s infinite linear;
+          }
           @media (max-width: 768px) {
             .mobile-fab {
               bottom: calc(88px + env(safe-area-inset-bottom)) !important;
@@ -868,20 +893,7 @@ export default function AskManoj() {
           )}
         </AnimatePresence>
 
-        {/* Subtle outer pulse ring — only when closed */}
-        {!isOpen && (
-          <motion.span
-            animate={{ scale: [1, 1.7], opacity: [0.5, 0] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
-            style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: "4px 14px 4px 14px",
-              background: "rgba(108,99,255,0.3)",
-              pointerEvents: "none",
-            }}
-          />
-        )}
+
       </motion.button>
     </>
   );

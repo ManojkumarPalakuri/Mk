@@ -64,7 +64,7 @@ export default function Navbar() {
           borderRight: scrolled
             ? "1px solid var(--border-glass)"
             : "1px solid transparent",
-          background: scrolled ? "rgba(8,8,16,0.7)" : "transparent",
+          background: scrolled ? "var(--nav-bg)" : "transparent",
           backdropFilter: scrolled ? "blur(24px)" : "none",
           transition: "background 0.5s, border-color 0.5s",
         }}
@@ -173,8 +173,8 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 1.25rem",
-          background: "rgba(8,8,16,0.92)",
-          backdropFilter: "blur(20px)",
+          background: "rgba(8, 8, 16, 0.22)",
+          backdropFilter: "blur(40px)",
           borderBottom: "1px solid var(--border-glass)",
         }}
       >
@@ -198,13 +198,13 @@ export default function Navbar() {
         {/* Hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display:"flex",flexDirection:"column",gap:5 }}
+          style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", flexDirection: "column", gap: 5 }}
           aria-label="Menu"
         >
           {[0, 1, 2].map((i) => (
             <motion.span
               key={i}
-              style={{ display: "block", height: 1.5, width: i === 1 ? 20 : 28, background: "#eeeef5", borderRadius: 2 }}
+              style={{ display: "block", height: 1.5, width: i === 1 ? 20 : 28, background: "var(--text-primary)", borderRadius: 2 }}
               animate={
                 menuOpen
                   ? i === 0 ? { rotate: 45, y: 6.5 }
