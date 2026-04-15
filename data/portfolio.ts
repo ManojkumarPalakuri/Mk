@@ -189,7 +189,7 @@ export const skills = {
   Languages: ["JavaScript", "Python", "HTML", "CSS", "TypeScript"],
   "Frameworks & Libraries": ["React", "Next.js", "Node.js", "Express", "Framer Motion", "GSAP"],
   "Databases": ["MongoDB", "MySQL"],
-  "Cloud & DevOps": ["AWS EC2", "AWS IAM", "CI/CD Pipelines", "Vercel", "Docker"],
+  "Cloud & DevOps": ["AWS EC2", "AWS IAM", "CI/CD Pipelines", "Vercel"],
   "Security": ["Wireshark", "Nmap", "Burp Suite", "JWT", "Argon2id", "SSL/TLS", "AES-256", "PBKDF2"],
   "Tools": ["Git", "GitHub", "VS Code", "Postman", "Linux"],
 };

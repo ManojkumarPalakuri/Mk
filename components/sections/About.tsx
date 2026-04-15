@@ -304,9 +304,9 @@ export default function About() {
           <div className="marquee-track">
             {[
               "React", "Node.js", "TypeScript", "AWS", "MongoDB", "Python",
-              "Solidity", "Docker", "Next.js", "PostgreSQL", "Kubernetes", "Redis",
+              "Next.js", "PostgreSQL", "Redis",
               "React", "Node.js", "TypeScript", "AWS", "MongoDB", "Python",
-              "Solidity", "Docker", "Next.js", "PostgreSQL", "Kubernetes", "Redis",
+              "Next.js", "PostgreSQL", "Redis",
             ].map((t, i) => (
               <span
                 key={i}
