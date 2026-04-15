@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { skills, certifications } from "@/data/portfolio";
 
 const categoryMeta: Record<string, { color: string; from: string; to: string; num: string }> = {
@@ -135,59 +135,67 @@ export default function Skills() {
           position: "relative",
           minHeight: "20rem",
         }}>
-          {categories.map((cat, ci) => {
-            const m = categoryMeta[cat];
-            const isHidden = activeCategory !== null && activeCategory !== cat;
-            const catSkills = (skills as Record<string, string[]>)[cat] || [];
+          <AnimatePresence mode="popLayout">
+            {categories
+              .filter(cat => activeCategory === null || activeCategory === cat)
+              .map((cat, ci) => {
+                const m = categoryMeta[cat];
+                const catSkills = (skills as Record<string, string[]>)[cat] || [];
 
-            return catSkills.map((skill, si) => {
-              /* Give each tag a subtle random aesthetic rotation ±3° */
-              const seed    = (ci * 17 + si * 7) % 100;
-              const rotate  = ((seed % 7) - 3);
-              const sizeMod = 0.75 + (seed % 4) * 0.1;
+                return catSkills.map((skill, si) => {
+                  /* Give each tag a subtle random aesthetic rotation ±3° */
+                  const seed    = (ci * 17 + si * 7) % 100;
+                  const rotate  = ((seed % 7) - 3);
+                  const sizeMod = 0.75 + (seed % 4) * 0.1;
 
-              return (
-                <motion.div
-                  key={`${cat}-${skill}`}
-                  initial={{ opacity: 0, scale: 0.7, rotate: rotate * 2 }}
-                  whileInView={{ opacity: 1, scale: 1, rotate }}
-                  animate={{ opacity: isHidden ? 0.1 : 1, scale: isHidden ? 0.85 : 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: si * 0.04 + ci * 0.06, ease: "easeOut" }}
-                  whileHover={{ scale: 1.12, rotate: 0, zIndex: 10 }}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                    padding: `${5 * sizeMod}px ${12 * sizeMod}px`,
-                    borderRadius: si % 3 === 0 ? "4px 12px 4px 12px" : si % 3 === 1 ? "12px 4px 12px 4px" : "8px",
-                    background: `${m.color}10`,
-                    border: `1px solid ${m.color}30`,
-                    fontSize: `${sizeMod * 0.78}rem`,
-                    color: "var(--text-secondary)",
-                    fontWeight: 600,
-                    fontFamily: "'Space Grotesk',sans-serif",
-                    cursor: "default",
-                    position: "relative",
-                    transition: "background 0.25s, color 0.25s",
-                    transformOrigin: "center",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.background = `${m.color}25`;
-                    (e.currentTarget as HTMLDivElement).style.color = "var(--text-primary)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.background = `${m.color}10`;
-                    (e.currentTarget as HTMLDivElement).style.color = "var(--text-secondary)";
-                  }}
-                >
-                  {/* Category color dot */}
-                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: m.color, flexShrink: 0 }} />
-                  {skill}
-                </motion.div>
-              );
-            });
-          })}
+                  return (
+                    <motion.div
+                      key={`${cat}-${skill}`}
+                      layout
+                      initial={{ opacity: 0, scale: 0.7, rotate: rotate * 2 }}
+                      animate={{ opacity: 1, scale: 1, rotate }}
+                      exit={{ opacity: 0, scale: 0.5 }}
+                      viewport={{ once: true }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: activeCategory === null ? (si * 0.04 + ci * 0.06) : (si * 0.02), 
+                        ease: "easeOut" 
+                      }}
+                      whileHover={{ scale: 1.12, rotate: 0, zIndex: 10 }}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                        padding: `${5 * sizeMod}px ${12 * sizeMod}px`,
+                        borderRadius: si % 3 === 0 ? "4px 12px 4px 12px" : si % 3 === 1 ? "12px 4px 12px 4px" : "8px",
+                        background: `${m.color}10`,
+                        border: `1px solid ${m.color}30`,
+                        fontSize: `${sizeMod * 0.78}rem`,
+                        color: "var(--text-secondary)",
+                        fontWeight: 600,
+                        fontFamily: "'Space Grotesk',sans-serif",
+                        cursor: "default",
+                        position: "relative",
+                        transition: "background 0.25s, color 0.25s",
+                        transformOrigin: "center",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLDivElement).style.background = `${m.color}25`;
+                        (e.currentTarget as HTMLDivElement).style.color = "var(--text-primary)";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLDivElement).style.background = `${m.color}10`;
+                        (e.currentTarget as HTMLDivElement).style.color = "var(--text-secondary)";
+                      }}
+                    >
+                      {/* Category color dot */}
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: m.color, flexShrink: 0 }} />
+                      {skill}
+                    </motion.div>
+                  );
+                });
+              })}
+          </AnimatePresence>
         </div>
 
         {/* ── Certifications ─────────────────────────────── */}
