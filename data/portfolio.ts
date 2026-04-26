@@ -128,6 +128,28 @@ export const projects = [
     liveUrl: "#",
     githubUrl: "#",
   },
+  {
+    id: 6,
+    title: "Smart Bench — Blockchain RFID",
+    shortDesc: "Tamper-proof student attendance system using IoT and Hyperledger Fabric",
+    longDesc:
+      "A tamper-proof student attendance system: RFID cards are scanned, the UID is SHA-256 hashed on-device, and the hash is committed to a Hyperledger Fabric permissioned blockchain via a Node.js gateway. Features a premium dashboard for real-time ledger records, dynamic stats, and PDF reports.",
+    stack: ["Arduino", "Hyperledger Fabric", "Node.js", "Vanilla JS"],
+    category: "IoT & Blockchain",
+    featured: true,
+    color: "#10b981",
+    gradientFrom: "#10b981",
+    gradientTo: "#3b82f6",
+    highlights: [
+      "SHA-256 on-device hashing (Arduino UNO R4)",
+      "Hyperledger Fabric permissioned ledger",
+      "Node.js Backend Gateway with gRPC",
+      "Real-time auto-polling dashboard",
+      "Premium PDF & CSV reports generation",
+    ],
+    liveUrl: "#",
+    githubUrl: "https://github.com/ManojkumarPalakuri/iot_ibm",
+  },
 ];
 
 export const experience = [
